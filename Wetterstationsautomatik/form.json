@@ -7,8 +7,8 @@
         { "type": "label", "label": ""},
         { "type": "label", "label": "Regen"},
         { "type": "SelectVariable", "name": "Regensensor", "caption": "Regensensor" },
-        { "type": "Label", "label": ""},
-        { "type": "Label", "label": "Wind:"},
+        { "type": "label", "label": ""},
+        { "type": "label", "label": "Wind:"},
         { "type": "SelectVariable", "name": "Windsensor", "caption": "Windsensor" }
     ]
 }
