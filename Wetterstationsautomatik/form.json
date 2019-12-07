@@ -4,11 +4,11 @@
         { "type": "Label", "label": "Beschattung:"},
         { "type": "SelectVariable", "name": "Helligkeit", "caption": "Lichtsensor" },
         { "type": "SelectVariable", "name": "Azimut", "caption": "Sonnenazimut"},
-        { "type": "label", "label": ""},
-        { "type": "label", "label": "Regen"},
+        { "type": "Label", "label": ""},
+        { "type": "Label", "label": "Regen"},
         { "type": "SelectVariable", "name": "Regensensor", "caption": "Regensensor" },
-        { "type": "label", "label": ""},
-        { "type": "label", "label": "Wind:"},
+        { "type": "Label", "label": ""},
+        { "type": "Label", "label": "Wind:"},
         { "type": "SelectVariable", "name": "Windsensor", "caption": "Windsensor" }
     ]
 }
