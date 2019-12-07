@@ -1,0 +1,14 @@
+{
+    "id": "{DEBB863E-C68B-0AAC-2EF9-2C15FE73C2BD}m",
+    "name": "Wetterstationsautomatik",
+    "type": 3,
+    "vendor": "BRELAG",
+    "aliases":
+        [
+            "AzimutBeschattung"
+        ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "BRELAG"
+}
