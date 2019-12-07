@@ -28,21 +28,21 @@
         // Variablen für die Beschattung
         $this->RegisterVariableBoolean("Status", "Beschattungsautomatik aktiv?", "BESCHATTUNG.Switch", 1);
         $this->EnableAction("Status");
-        $this->RegisterVariableInteger("LuxSollOben", "Helligkeit: Oberen Schwllwert", "~Illumination", 2);
+        $this->RegisterVariableInteger("LuxSollOben", "Helligkeit: Oberen Schwllwert", "", 2);
         $this->EnableAction("LuxSollOben");
-        $this->RegisterVariableInteger("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "~Illumination", 3);
+        $this->RegisterVariableInteger("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "", 3);
         $this->EnableAction("LuxSollUnten");
         $this->RegisterVariableBoolean("Beschattungsstatus", "Beschattung aktiv?", "BESCHATTUNG.Switch", 4);
-        $this->RegisterVariableInteger("AzimutSollVon", "Azimut: Von", "~WindDirection", 5);
+        $this->RegisterVariableInteger("AzimutSollVon", "Azimut: Von", "", 5);
         $this->EnableAction("AzimutSollVon");
-        $this->RegisterVariableInteger("AzimutSollBis", "Azimut: Bis", "~WindDirection", 6);
+        $this->RegisterVariableInteger("AzimutSollBis", "Azimut: Bis", "", 6);
         $this->EnableAction("AzimutSollBis");
         
 		// Variablen für Wind
         $this->RegisterVariableBoolean("Windstatus", "Windalarm", "BESCHATTUNG.Switch", 7);
-        $this->RegisterVariableFloat("WindSollOben", "Wind: Oberen Schwellwert", "~WindSpeed.kmh", 8);
+        $this->RegisterVariableInteger("WindSollOben", "Wind: Oberen Schwellwert", "", 8);
         $this->EnableAction("WindSollOben");
-        $this->RegisterVariableFloat("WindSollUnten", "Wind: Unteren Schwellwert", "~WindSpeed.kmh", 9);
+        $this->RegisterVariableInteger("WindSollUnten", "Wind: Unteren Schwellwert", "", 9);
         $this->EnableAction("WindSollUnten");
         $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 10);
         $this->EnableAction("BeschattungWiederholen");
