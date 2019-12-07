@@ -28,9 +28,9 @@
         // Variablen für die Beschattung
         $this->RegisterVariableBoolean("Status", "Beschattungsautomatik aktiv?", "BESCHATTUNG.Switch", 1);
         $this->EnableAction("Status");
-        $this->RegisterVariableInteger("LuxSollOben", "Helligkeit: Oberen Schwllwert", "~Illumiunation", 2);
+        $this->RegisterVariableInteger("LuxSollOben", "Helligkeit: Oberen Schwllwert", "~illumiunation", 2);
         $this->EnableAction("LuxSollOben");
-        $this->RegisterVariableInteger("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "~Illumination", 3);
+        $this->RegisterVariableInteger("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "~illumination", 3);
         $this->EnableAction("LuxSollUnten");
         $this->RegisterVariableBoolean("Beschattungsstatus", "Beschattung aktiv?", "BESCHATTUNG.Switch", 4);
         $this->RegisterVariableInteger("AzimutSollVon", "Azimut: Von", "~WindDirection", 5);
