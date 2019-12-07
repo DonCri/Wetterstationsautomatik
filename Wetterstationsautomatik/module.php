@@ -39,17 +39,17 @@
         $this->EnableAction("AzimutSollBis");
         
 		// Variablen für Wind
-        $this->RegisterVariableBoolean("Windstatus", "Windalarm", "~BESCHATTUNG.Switch", 7);
+        $this->RegisterVariableBoolean("Windstatus", "Windalarm", "BESCHATTUNG.Switch", 7);
         $this->RegisterVariableInteger("WindSollOben", "Wind: Oberen Schwellwert", "~WindSpeed.kmh", 8);
         $this->EnableAction("WindSOllOben");
         $this->RegisterVariableInteger("WindSollUnten", "Wind: Unteren Schwellwert", "~WindSpeed.kmh", 9);
         $this->EnableAction("WindSollUnten");
-        $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen?", "BRELAGL.Switch", 10);
+        $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 10);
         $this->EnableAction("BeschattungWiederholen");
         
         // Variable für Regen
-        $this->RegisterVariableBoolean("Regenstatus", "Regen", "~BESCHATTUNG.Switch", 11);
-        $this->RegisterVariableBoolean("BeschattungWiederholen2", "Nach Regen Beschattung erneut prüfen?", "BRELAGL.Switch", 12);
+        $this->RegisterVariableBoolean("Regenstatus", "Regen", "BESCHATTUNG.Switch", 11);
+        $this->RegisterVariableBoolean("BeschattungWiederholen2", "Nach Regen Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 12);
         $this->EnableAction("BeschattungWiederholen2");
         
         // Eigenschaften speichern
