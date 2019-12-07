@@ -181,7 +181,7 @@
        public function Windalarm() {
            
            $Windsensor = GetValue($this->ReadPropertyInteger("Windsensor"));
-           $WindSollOben = GetValue($this->GetIDForIdent("WindSOllOben"));
+           $WindSollOben = GetValue($this->GetIDForIdent("WindSollOben"));
            $WindSollUnten = GetValue($this->GetIDForIdent("WindSollUnten"));
            $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
            
