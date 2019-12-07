@@ -41,7 +41,7 @@
 		// Variablen für Wind
         $this->RegisterVariableBoolean("Windstatus", "Windalarm", "BESCHATTUNG.Switch", 7);
         $this->RegisterVariableFloat("WindSollOben", "Wind: Oberen Schwellwert", "~WindSpeed.kmh", 8);
-        $this->EnableAction("WindSOllOben");
+        $this->EnableAction("WindSollOben");
         $this->RegisterVariableFloat("WindSollUnten", "Wind: Unteren Schwellwert", "~WindSpeed.kmh", 9);
         $this->EnableAction("WindSollUnten");
         $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 10);
