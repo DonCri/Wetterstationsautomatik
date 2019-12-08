@@ -1,19 +1,26 @@
-# Modul zur Beschattung durch Sonnenazimut und Helligkeit.
+### Version 1.0
+** Folgende Variablen werden hinzugefügt **
 
-### Version
-1.0
+* Je eine Integervariable für den oberen und unteren Schwellwert für die Helligkeit.
+* Je eine Integervariable für den Sonnenazimut von und bis.
+* Je eine Integervariable für den oberen und unteren Schwellwert für die Windgeschwindigkeit.
+* Eine Boolean für das aktivieren bzw. deaktivieren der Sonnenautomatik.
+* Je eine Boolean um die Wiederholung der Beschattungsprüfung nach dem auflösen von Wind oder Regen.
+* Je eine Boolean um den Alarmstatus von Wind oder Regen anzuzeigen.
+* Eine Boolean die anzeigt ob die Beschattung aktiviert ist oder nicht.
+   
+** Funktionen **
 
-### Was wird hinzugefügt?
+Die Variablen Sonnenazimut, Regensensor und Windsensor werden im Konfigurationsfeld ausgewählt und durch RegisterMessage gespeichert.
+* Die Variable "Beschattung aktiv" wird auf true gestellt, wenn: Der Helligkeitswert (ausgelöst durch Sonnenazimut) grösser oder gleich wie der obere Schwellwert ist und der Azimut zwischen dem Wert der Variable "Azimut: Von" und "Azimut: Bis" liegt.
+* Die Variable "Beschattung aktiv" wird auf false gestellt, wenn: Der Helligkeitswert (ausgelöst durch Sonnenazimut) kleiner oder gleich ist wie der untere Schwellwert oder der Azimutwert höher als der Wert von "Azimut: Bis" ist.
+* Die Variable "Regen?" wird auf true gesetzt, wenn: Der Regensensor aktiv ist.
+* Die Variable "Windalarm?" wird auf true gestellt, wenn: Der Windsensorwert grösser oder gleich wie der obere Schwellwert ist.
+* Die Variable "Windalarm?" wird auf false gestellt, wenn: Der Windsenorwert kleiner wie der untere Schwellwert ist.
 
+** Konfigurationsformular **
 
-
-### Beschreibung der einzelne Variable
-
-
-
-### Funktionsweise
-
-
-
-### Eigenschaftenformular
-
+Auswahlmöglichkeit von folgenden Variablen: Lichtsensor, Sonenazimut, Regensensor und Windsensor.
+Sonnenazimut, Regensensor und Windsensor werden durch RegisterMessage gespeichert und lösen folgende Funktionen aus:
+* Sonnenazimut: Beschattung
+* Regensensor: Regenalarm
