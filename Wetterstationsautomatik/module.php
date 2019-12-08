@@ -28,15 +28,15 @@
         if(!IPS_VariableProfileExists("BESCHATTUNG.SwitchSonne")) {
             IPS_CreateVariableProfile("BESCHATTUNG.SwitchSonne", 0);
             IPS_SetVariableProfileIcon("BESCHATTUNG.SwitchSonne", "Power");
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", 0, $this->Translate("Off"), "", -1,);
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", 1, $this->Translate("On"), "", 0x3ADF00);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", 0, $this->Translate("Beschattung-Off"), "", -1,);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", 1, $this->Translate("Beschattung-On"), "", 0x3ADF00);
             }
          
         if(!IPS_VariableProfileExists("BESCHATTUNG.SwitchAlarm")) {
             IPS_CreateVariableProfile("BESCHATTUNG.SwitchAlarm", 0);
             IPS_SetVariableProfileIcon("BESCHATTUNG.SwitchAlarm", "Power");
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", 0, $this->Translate("Off"), "", -1,);
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", 1, $this->Translate("On"), "", 0xDF0101);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", 0, $this->Translate("Alarm-Off"), "", -1,);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", 1, $this->Translate("Alarm-On"), "", 0xDF0101);
             }
         
         // Variablen für die Beschattung
@@ -53,7 +53,7 @@
         $this->EnableAction("AzimutSollBis");
         
 		// Variablen für Wind
-        $this->RegisterVariableBoolean("Windstatus", "Windalarm", "BESCHATTUNG.SwitchAlarm", 7);
+        $this->RegisterVariableBoolean("Windstatus", "Windalarm?", "BESCHATTUNG.SwitchAlarm", 7);
         $this->RegisterVariableInteger("WindSollOben", "Wind: Oberen Schwellwert", "", 8);
         $this->EnableAction("WindSollOben");
         $this->RegisterVariableInteger("WindSollUnten", "Wind: Unteren Schwellwert", "", 9);
@@ -62,7 +62,7 @@
         $this->EnableAction("BeschattungWiederholen");
         
         // Variable für Regen
-        $this->RegisterVariableBoolean("Regenstatus", "Regen", "BESCHATTUNG.SwitchAlarm", 11);
+        $this->RegisterVariableBoolean("Regenstatus", "Regen?", "BESCHATTUNG.SwitchAlarm", 11);
         $this->RegisterVariableBoolean("BeschattungWiederholen2", "Nach Regen Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 12);
         $this->EnableAction("BeschattungWiederholen2");
         

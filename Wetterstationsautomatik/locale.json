@@ -2,7 +2,11 @@
     "translations": {
         "de": {
             "On": "Ja",
-            "Off": "Nein"
+            "Off": "Nein",
+            "Alarm-On": "Aktiv",
+            "Alarm-Off": "Inaktiv",
+            "Beschattung-On": "Aktiv",
+            "Beschattung-Off": "Inaktiv"
         }
     }
 }
