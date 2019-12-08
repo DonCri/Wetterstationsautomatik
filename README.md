@@ -26,3 +26,4 @@ Sonnenazimut, Regensensor und Windsensor werden durch RegisterMessage gespeicher
 Folgende Funktionen werden ausgelöst:
 * Sonnenazimut: Beschattung
 * Regensensor: Regenalarm
+* Windsensor: Windalarm
