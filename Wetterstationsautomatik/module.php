@@ -42,13 +42,13 @@
         if(!IPS_VariableProfileExists("SchwellwertWind")) {
             IPS_CreateVariableProfile("SchwellwertWind", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
             IPS_SetVariableProfileIcon("SchwellwertWind", "WindSpeed");
-            IPS_SetVariableProfileText("SchwellwertWind", "", "km/h");
+            IPS_SetVariableProfileText("SchwellwertWind", "", " km/h");
             }
             
         if(!IPS_VariableProfileExists("SchwellwertSonne")) {
             IPS_CreateVariableProfile("SchwellwertSonne", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
             IPS_SetVariableProfileIcon("SchwellwertSonne", "Sun");
-            IPS_SetVariableProfileText("SchwellwertSonne", "", "lux");
+            IPS_SetVariableProfileText("SchwellwertSonne", "", " lux");
             }
         
         // Variablen für die Beschattung
