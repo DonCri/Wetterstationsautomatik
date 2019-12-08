@@ -22,6 +22,7 @@ Die Variablen Sonnenazimut, Regensensor und Windsensor werden im Konfigurationsf
 #### Konfigurationsformular
 
 Auswahlmöglichkeit von folgenden Variablen: Lichtsensor, Sonenazimut, Regensensor und Windsensor.
-Sonnenazimut, Regensensor und Windsensor werden durch RegisterMessage gespeichert und lösen folgende Funktionen aus:
+Sonnenazimut, Regensensor und Windsensor werden durch RegisterMessage gespeichert. 
+Folgende Funktionen werden ausgelöst:
 * Sonnenazimut: Beschattung
 * Regensensor: Regenalarm
