@@ -53,7 +53,7 @@
         if(!IPS_VariableProfileExists("SchwellwertAzimut")) {
             IPS_CreateVariableProfile("SchwellwertAzimut", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
             IPS_SetVariableProfileIcon("SchwellwertAzimut", "WindDirection");
-            IPS_SetVariableProfileText("SchwellwertAzimut", "", " °");
+            IPS_SetVariableProfileText("SchwellwertAzimut", "", "°");
             }
         
         // Variablen für die Beschattung
