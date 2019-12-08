@@ -1,5 +1,6 @@
 ### Version 1.0
-** Folgende Variablen werden hinzugefügt **
+
+#### Folgende Variablen werden hinzugefügt 
 
 * Je eine Integervariable für den oberen und unteren Schwellwert für die Helligkeit.
 * Je eine Integervariable für den Sonnenazimut von und bis.
@@ -9,7 +10,7 @@
 * Je eine Boolean um den Alarmstatus von Wind oder Regen anzuzeigen.
 * Eine Boolean die anzeigt ob die Beschattung aktiviert ist oder nicht.
    
-** Funktionen **
+#### Funktionen 
 
 Die Variablen Sonnenazimut, Regensensor und Windsensor werden im Konfigurationsfeld ausgewählt und durch RegisterMessage gespeichert.
 * Die Variable "Beschattung aktiv" wird auf true gestellt, wenn: Der Helligkeitswert (ausgelöst durch Sonnenazimut) grösser oder gleich wie der obere Schwellwert ist und der Azimut zwischen dem Wert der Variable "Azimut: Von" und "Azimut: Bis" liegt.
@@ -18,7 +19,7 @@ Die Variablen Sonnenazimut, Regensensor und Windsensor werden im Konfigurationsf
 * Die Variable "Windalarm?" wird auf true gestellt, wenn: Der Windsensorwert grösser oder gleich wie der obere Schwellwert ist.
 * Die Variable "Windalarm?" wird auf false gestellt, wenn: Der Windsenorwert kleiner wie der untere Schwellwert ist.
 
-** Konfigurationsformular **
+#### Konfigurationsformular
 
 Auswahlmöglichkeit von folgenden Variablen: Lichtsensor, Sonenazimut, Regensensor und Windsensor.
 Sonnenazimut, Regensensor und Windsensor werden durch RegisterMessage gespeichert und lösen folgende Funktionen aus:
