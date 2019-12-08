@@ -50,6 +50,11 @@
             IPS_SetVariableProfileIcon("SchwellwertSonne", "Sun");
             IPS_SetVariableProfileText("SchwellwertSonne", "", " lux");
             }
+        if(!IPS_VariableProfileExists("SchwellwertAzimut")) {
+            IPS_CreateVariableProfile("SchwellwertAzimut", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
+            IPS_SetVariableProfileIcon("SchwellwertAzimut", "WindDirection");
+            IPS_SetVariableProfileText("SchwellwertAzimut", "", " °");
+            }
         
         // Variablen für die Beschattung
         $this->RegisterVariableBoolean("Status", "Beschattungsautomatik aktiv?", "BESCHATTUNG.Switch", 1);
@@ -59,9 +64,9 @@
         $this->RegisterVariableInteger("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "SchwellwertSonne", 3);
         $this->EnableAction("LuxSollUnten");
         $this->RegisterVariableBoolean("Beschattungsstatus", "Beschattung aktiv?", "BESCHATTUNG.SwitchSonne", 4);
-        $this->RegisterVariableInteger("AzimutSollVon", "Azimut: Von", "", 5);
+        $this->RegisterVariableInteger("AzimutSollVon", "Azimut: Von", "SchwellwertAzimut", 5);
         $this->EnableAction("AzimutSollVon");
-        $this->RegisterVariableInteger("AzimutSollBis", "Azimut: Bis", "", 6);
+        $this->RegisterVariableInteger("AzimutSollBis", "Azimut: Bis", "SchwellwertAzimut", 6);
         $this->EnableAction("AzimutSollBis");
         
 		// Variablen für Wind
