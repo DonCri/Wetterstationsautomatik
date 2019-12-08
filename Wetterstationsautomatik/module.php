@@ -48,7 +48,7 @@
         if(!IPS_VariableProfileExists("SchwellwertSonne")) {
             IPS_CreateVariableProfile("SchwellwertSonne", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
             IPS_SetVariableProfileIcon("SchwellwertSonne", "Sun");
-            IPS_SetVariableProfileText("SchwellwertSonne", "", " lux");
+            IPS_SetVariableProfileText("SchwellwertSonne", "", " lx");
             }
         if(!IPS_VariableProfileExists("SchwellwertAzimut")) {
             IPS_CreateVariableProfile("SchwellwertAzimut", 1); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
