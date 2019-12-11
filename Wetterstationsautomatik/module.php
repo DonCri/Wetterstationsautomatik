@@ -141,13 +141,13 @@
         
         switch ($this->ReadPropertyBoolean("LichtsensorAktiv")) {
             case true:
-                $this->RegisterMessage($this->ReadPropertyBoolean("LichtsensorAktiv"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyBoolean("Helligkeit"), VM_UPDATE);
                 $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
             break;
             
             case false:
                 $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
-                $this->UnregisterMessage($this->ReadPropertyBoolean("LichtsensorAktiv"), VM_UPDATE);
+                $this->UnregisterMessage($this->ReadPropertyBoolean("Helligkeit"), VM_UPDATE);
             break;
         }
         
@@ -237,7 +237,7 @@
            } elseif($Windsensor < $WindSollUnten) {
                SetValue($this->GetIDForIdent("Windstatus"), false);
                if($Beschattung == true) {
-                   SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                   $this->BeschattungWiederholen();
                }
            }
        }
@@ -254,7 +254,7 @@
                case false:
                     SetValue($this->GetIDForIdent("Regenstatus"), false);
                     if($Beschattung == true) {
-                        SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                        $this->BeschattungWiederholen();
                     }
                    break;
            }
