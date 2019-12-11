@@ -88,6 +88,7 @@
         $this->RegisterPropertyInteger("Azimut", 0);
         $this->RegisterPropertyInteger("Regensensor", 0);
         $this->RegisterPropertyInteger("Windsensor", 0);
+        $this->RegisterPropertyBoolean("LichtsensorAktiv", false);
       }
 
       public function RequestAction($Ident, $Value) {
@@ -137,7 +138,20 @@
         parent::ApplyChanges();
         
         // Wenn keine übergeordenete Instanz vorhanden ist, erstelle eine neue eigene VirtualIO Instanz
-        $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
+        $LichtsensorAktiv = GetValue($this->GetIDForIdent($LichtsensorAktiv));
+        
+        switch ($LichtsensorAktiv) {
+            case true:
+                $this->RegisterMessage($this->ReadPropertyBoolean("LichtsensorAktiv"), VM_UPDATE);
+                $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
+            break;
+            
+            case false:
+                $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
+                $this->UnregisterMessage($this->ReadPropertyInteger("LichtsensorAktiv"), VM_UPDATE);
+            break;
+        }
+        
         $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
         $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
     }

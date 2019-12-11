@@ -2,6 +2,7 @@
     "elements":
     [
         { "type": "Label", "label": "Beschattung:"},
+        { "type": "CheckBox", "name": "LichtsensorAktiv", "caption": "Aktivierung der Beschattung durch den Lichtsensor (inaktiv durch Sonnenazimut" },
         { "type": "SelectVariable", "name": "Helligkeit", "caption": "Lichtsensor" },
         { "type": "SelectVariable", "name": "Azimut", "caption": "Sonnenazimut"},
         { "type": "Label", "label": ""},
