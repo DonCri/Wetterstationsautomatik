@@ -138,7 +138,7 @@
         parent::ApplyChanges();
         
         // Wenn keine übergeordenete Instanz vorhanden ist, erstelle eine neue eigene VirtualIO Instanz
-        $LichtsensorAktiv = GetValue($this->GetIDForIdent($LichtsensorAktiv));
+        $LichtsensorAktiv = GetValue($this->ReadPropertyBoolean("LichtsensorAktiv"));
         
         switch ($LichtsensorAktiv) {
             case true:
