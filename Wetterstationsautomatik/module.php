@@ -164,6 +164,9 @@
             case $this->ReadPropertyInteger("Azimut"):
                     $this->BeschattungAktivieren();
                 break;
+            case $this->ReadPropertyBoolean("LichtsensorAktiv"):
+                $this->BeschattungAktivieren();
+                break;
             case $this->ReadPropertyInteger("Windsensor"):
                     $this->Windalarm();
                 break;
