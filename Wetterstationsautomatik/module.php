@@ -138,9 +138,8 @@
         parent::ApplyChanges();
         
         // Wenn keine übergeordenete Instanz vorhanden ist, erstelle eine neue eigene VirtualIO Instanz
-        $LichtsensorAktiv = GetValue($this->ReadPropertyBoolean("LichtsensorAktiv"));
         
-        switch ($LichtsensorAktiv) {
+        switch ($this->ReadPropertyBoolean("LichtsensorAktiv")) {
             case true:
                 $this->RegisterMessage($this->ReadPropertyBoolean("LichtsensorAktiv"), VM_UPDATE);
                 $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
