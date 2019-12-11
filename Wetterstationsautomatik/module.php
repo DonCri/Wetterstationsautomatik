@@ -148,7 +148,7 @@
             
             case false:
                 $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
-                $this->UnregisterMessage($this->ReadPropertyInteger("LichtsensorAktiv"), VM_UPDATE);
+                $this->UnregisterMessage($this->ReadPropertyBoolean("LichtsensorAktiv"), VM_UPDATE);
             break;
         }
         
