@@ -1,0 +1,10 @@
+{
+    "translations": {
+        "de": {
+            "ModeOne": "Teilbereich 1",
+            "ModeBell": "Gong",
+            "Off": "Aus",
+            "On": "Ein"
+        }
+    }
+}
