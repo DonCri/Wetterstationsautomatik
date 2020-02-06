@@ -185,7 +185,7 @@
             $Azimut = GetValue($this->ReadPropertyInteger("Azimut"));
             $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
             $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-            $Regen = GetValue($this->ReadPropertyInteger("Regensensor"));
+            $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
             $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
             
             switch ($Status) {
@@ -214,7 +214,7 @@
            $Azimut = GetValue($this->ReadPropertyInteger("Azimut"));
            $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
            $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-           $Regen = GetValue($this->ReadPropertyInteger("Regensensor"));
+           $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
            
            switch ($Status) {
                case true:
