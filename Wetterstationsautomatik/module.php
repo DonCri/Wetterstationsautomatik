@@ -192,7 +192,7 @@
                 case true:
                     switch ($Beschattungsstatus) {
                         case false:
-                            if($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben) {
+                            if($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
                                 SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                             }
                             break;
@@ -211,7 +211,6 @@
            $Status = GetValue($this->GetIDForIdent("Status"));
            $Helligkeit = GetValue($this->ReadPropertyInteger("Helligkeit"));
            $LuxSollOben = GetValue($this->GetIDForIdent("LuxSollOben"));
-           $LuxSollUnten = GetValue($this->GetIDForIdent("LuxSollOben"));
            $Azimut = GetValue($this->ReadPropertyInteger("Azimut"));
            $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
            $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
@@ -219,7 +218,7 @@
            
            switch ($Status) {
                case true:
-                       if($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben) {
+                       if($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
                            SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                        }
                    break;
@@ -237,7 +236,7 @@
                SetValue($this->GetIDForIdent("Windstatus"), true);
            } elseif($Windsensor < $WindSollUnten) {
                SetValue($this->GetIDForIdent("Windstatus"), false);
-               if($Besch±attung == true) {
+               if($Beschattung == true) {
                    $this->BeschattungWiederholen();
                }
            }
