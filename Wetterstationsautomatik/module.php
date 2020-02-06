@@ -7,7 +7,7 @@
         * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
         *
         * ABC_MeineErsteEigeneFunktion($id);
-        *
+       *
         */
           
         
@@ -19,23 +19,23 @@
 		
         // Profile
         if(!IPS_VariableProfileExists("BESCHATTUNG.Switch")) {
-            IPS_CreateVariableProfile("BESCHATTUNG.Switch", 0);
+			IPS_CreateVariableProfile("BESCHATTUNG.Switch", 0);
             IPS_SetVariableProfileIcon("BESCHATTUNG.Switch", "Power");
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.Switch", false, $this->Translate("Off"), "", -1,);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.Switch", false, $this->Translate("Off"), "", -1);
             IPS_SetVariableProfileAssociation("BESCHATTUNG.Switch", true, $this->Translate("On"), "", 0x3ADF00);
             }
             
         if(!IPS_VariableProfileExists("BESCHATTUNG.SwitchSonne")) {
             IPS_CreateVariableProfile("BESCHATTUNG.SwitchSonne", 0);
             IPS_SetVariableProfileIcon("BESCHATTUNG.SwitchSonne", "Sun");
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", false, $this->Translate("Beschattung-Off"), "", -1,);
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", false, $this->Translate("Beschattung-Off"), "", -1);
             IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchSonne", true, $this->Translate("Beschattung-On"), "", 0x3ADF00);
             }
          
         if(!IPS_VariableProfileExists("BESCHATTUNG.SwitchAlarm")) {
-            IPS_CreateVariableProfile("BESCHATTUNG.SwitchAlarm", 0);
-            IPS_SetVariableProfileIcon("BESCHATTUNG.SwitchAlarm", "Alert");
-            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", false, $this->Translate("Alarm-Off"), "", -1,);
+			IPS_CreateVariableProfile("BESCHATTUNG.SwitchAlarm", 0);
+			IPS_SetVariableProfileIcon("BESCHATTUNG.SwitchAlarm", "Alert");
+            IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", false, $this->Translate("Alarm-Off"), "", -1);
             IPS_SetVariableProfileAssociation("BESCHATTUNG.SwitchAlarm", true, $this->Translate("Alarm-On"), "", 0xDF0101);
             }
             
@@ -50,6 +50,7 @@
             IPS_SetVariableProfileIcon("SchwellwertSonne", "Sun");
             IPS_SetVariableProfileText("SchwellwertSonne", "", " lx");
             }
+
         if(!IPS_VariableProfileExists("SchwellwertAzimut")) {
             IPS_CreateVariableProfile("SchwellwertAzimut", 3); // 0 = Boolean, 1 = Integer, 2 = Float, 3 = String
             IPS_SetVariableProfileIcon("SchwellwertAzimut", "WindDirection");
@@ -59,7 +60,7 @@
         // Variablen für die Beschattung
         $this->RegisterVariableBoolean("Status", "Beschattungsautomatik aktiv?", "BESCHATTUNG.Switch", 1);
         $this->EnableAction("Status");
-        $this->RegisterVariableString("LuxSollOben", "Helligkeit: Oberen Schwllwert", "SchwellwertSonne", 2);
+        $this->RegisterVariableString("LuxSollOben", "Helligkeit: Oberen Schwellwert", "SchwellwertSonne", 2);
         $this->EnableAction("LuxSollOben");
         $this->RegisterVariableString("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "SchwellwertSonne", 3);
         $this->EnableAction("LuxSollUnten");
@@ -236,7 +237,7 @@
                SetValue($this->GetIDForIdent("Windstatus"), true);
            } elseif($Windsensor < $WindSollUnten) {
                SetValue($this->GetIDForIdent("Windstatus"), false);
-               if($Beschattung == true) {
+               if($Besch±attung == true) {
                    $this->BeschattungWiederholen();
                }
            }
@@ -262,4 +263,4 @@
 
 }
 
-?>
+
