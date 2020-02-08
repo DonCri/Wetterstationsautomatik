@@ -179,13 +179,13 @@
       public function BeschattungAktivieren() {
             
             $Status = GetValue($this->GetIDForIdent("Status"));
-            $Helligkeit = GetValue($this->ReadPropertyInteger("Helligkeit"));
+            $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
             $LuxSollOben = GetValue($this->GetIDForIdent("LuxSollOben"));
             $LuxSollUnten = GetValue($this->GetIDForIdent("LuxSollOben"));
-            $Azimut = GetValue($this->ReadPropertyInteger("Azimut"));
+            $Azimut = $this->ReadPropertyInteger("Azimut");
             $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
             $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-            $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
+            $Regen = $this->ReadPropertyInteger("Regenstatus");
             $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
             
             switch ($Status) {
@@ -227,7 +227,7 @@
        
        public function Windalarm() {
            
-           $Windsensor = GetValue($this->ReadPropertyInteger("Windsensor"));
+           $Windsensor = $this->ReadPropertyInteger("Windsensor");
            $WindSollOben = GetValue($this->GetIDForIdent("WindSollOben"));
            $WindSollUnten = GetValue($this->GetIDForIdent("WindSollUnten"));
            $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
@@ -244,7 +244,7 @@
        
        public function Regenalarm() {
            
-           $Regensensor = GetValue($this->ReadPropertyInteger("Regensensor"));
+           $Regensensor = $this->ReadPropertyInteger("Regensensor");
            $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
            
            switch ($Regensensor) {
