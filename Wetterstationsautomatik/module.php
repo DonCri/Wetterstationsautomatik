@@ -163,28 +163,19 @@
         
         IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
 
-        /* $Lichtsensor = $this->ReadPropertyInteger("LichtsensorAktiv");
+        $Lichtsensor = $this->ReadPropertyInteger("LichtsensorAktiv");
         $Azimut = $this->ReadPropertyInteger("Azimut");
         $Windsensor = $this->ReadPropertyInteger("Windsensor");
         $Regensensor = $this->ReadPropertyInteger("Regensensor");
 
-        if($Lichtsensor == $SenderID || $Azimut == $SenderID || $Windsensor == $SenderID || $Regensensor == $SenderID) {
-
-        } */
-
-
-        switch ($SenderID) {
-            case $this->ReadPropertyBoolean("Helligkeit"):
-            case $this->ReadPropertyInteger("Azimut"):
-                    $this->BeschattungAktivieren();
-                break;
-            case $this->ReadPropertyInteger("Windsensor"):
-                    $this->Windalarm();
-                break;
-            case $this->ReadPropertyInteger("Regensensor"):
-                    $this->Regenalarm();
-                break;
+        if($Lichtsensor == $SenderID || $Azimut == $SenderID ) {
+                $this->BeschattungAktivieren();
+        } elseif($Windsensor == $SenderID) {
+            $this->Windalarm();
+        } elseif ($Regensensor == $SenderID) {
+            $this->Regenalarm();
         }
+
     }
 
       public function BeschattungAktivieren() {
