@@ -142,17 +142,17 @@
         
         switch ($this->ReadPropertyBoolean("LichtsensorAktiv")) {
             case true:
-                $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), VM_UPDATE);
-                $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
-                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
-                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603);
+                $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), 10603);
+                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), 10603);
+                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), 10603);
             break;
             
             case false:
-                $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
-                $this->UnregisterMessage($this->ReadPropertyInteger("Helligkeit"), VM_UPDATE);
-                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
-                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), 10603);
+                $this->UnregisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603);
+                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), 10603);
+                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), 10603);
             break;
         }
         
@@ -164,11 +164,9 @@
         IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
        
         switch ($SenderID) {
+            case $this->ReadPropertyBoolean("LichtsensorAktiv"):
             case $this->ReadPropertyInteger("Azimut"):
                     $this->BeschattungAktivieren();
-                break;
-            case $this->ReadPropertyBoolean("LichtsensorAktiv"):
-                $this->BeschattungAktivieren();
                 break;
             case $this->ReadPropertyInteger("Windsensor"):
                     $this->Windalarm();
