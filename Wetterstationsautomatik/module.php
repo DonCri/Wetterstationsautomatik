@@ -188,7 +188,7 @@
             $Azimut = $this->ReadPropertyInteger("Azimut");
             $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
             $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-            $Regen = $this->GetValue($this->GetIDForIdent("Regenstatus"));
+            $Regen = GetValue($this->GetIDForIdent("Regenstatus"));
             $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
             
             switch ($Status) {
