@@ -144,16 +144,19 @@
             case true:
                 $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), VM_UPDATE);
                 $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
             break;
             
             case false:
                 $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), VM_UPDATE);
                 $this->UnregisterMessage($this->ReadPropertyInteger("Helligkeit"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
+                $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
             break;
         }
         
-        $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), VM_UPDATE);
-        $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), VM_UPDATE);
+
     }
     
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
