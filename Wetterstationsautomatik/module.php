@@ -163,7 +163,7 @@
         
         IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
 
-        $Lichtsensor = $this->ReadPropertyInteger("LichtsensorAktiv");
+        $Lichtsensor = $this->ReadPropertyBoolean("LichtsensorAktiv");
         $Azimut = $this->ReadPropertyInteger("Azimut");
         $Windsensor = $this->ReadPropertyInteger("Windsensor");
         $Regensensor = $this->ReadPropertyInteger("Regensensor");
