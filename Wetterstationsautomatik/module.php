@@ -91,7 +91,6 @@ class Wetterstationsautomatik extends IPSModule
         $this->RegisterPropertyInteger("Azimut", 0);
         $this->RegisterPropertyInteger("Regensensor", 0);
         $this->RegisterPropertyInteger("Windsensor", 0);
-        $this->RegisterPropertyBoolean("LichtsensorAktiv", false);
     }
 
     public function RequestAction($Ident, $Value)
@@ -106,20 +105,14 @@ class Wetterstationsautomatik extends IPSModule
     {
         parent::ApplyChanges();
         
-        if ($this->ReadPropertyBoolean("LichtsensorAktiv")) {
-            $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603 /* VM_UPDATE */);
-            $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), 10603 /* VM_UPDATE */);
-        } else {
-            $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), 10603 /* VM_UPDATE */);
-            $this->UnregisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603 /* VM_UPDATE */);
-        }
+        $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603 /* VM_UPDATE */);
+        $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), 10603 /* VM_UPDATE */);
         $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), 10603 /* VM_UPDATE */);
         $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), 10603 /* VM_UPDATE */);
     }
     
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
         $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
         $Azimut = $this->ReadPropertyInteger("Azimut");
         $Windsensor = $this->ReadPropertyInteger("Windsensor");
@@ -142,7 +135,6 @@ class Wetterstationsautomatik extends IPSModule
 
     public function BeschattungAktivieren()
     {
-        //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
         $Status = GetValue($this->GetIDForIdent("Status"));     // gibt an ob Beschattungsautomatik aktiv oder inaktiv ist
         $HelligkeitWert = GetValue($this->ReadPropertyInteger("Helligkeit"));
         $LuxSollOben = GetValue($this->GetIDForIdent("LuxSollOben"));

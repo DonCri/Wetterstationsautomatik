@@ -3,12 +3,6 @@
     [
         { "type": "Label", "label": ""},
         { "type": "Label", "label": "Licht"},
-        { "type": "Select", "name": "LichtsensorAktiv", "caption": "Auslöser",
-            "options": [
-                { "caption": "Lichtsensor", "value": false },
-                { "caption": "Sonnenazimut", "value": true }
-            ]
-        },
         { "type": "SelectVariable", "name": "Helligkeit", "caption": "Lichtsensor" },
         { "type": "SelectVariable", "name": "Azimut", "caption": "Sonnenazimut"},
         { "type": "Label", "label": ""},
