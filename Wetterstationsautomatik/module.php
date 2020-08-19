@@ -172,7 +172,7 @@ class Wetterstationsautomatik extends IPSModule
                     SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
                 }
             } else {
-                if ($HelligkeitWert >= $LuxSollOben && !$Regenalarm) {
+                if ($HelligkeitWert >= $LuxSollOben && !$Regenalarm && !$Windalarm) {
                     if(!$AzimutWert || ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis)){
                         SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                     }
@@ -190,9 +190,10 @@ class Wetterstationsautomatik extends IPSModule
         $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
         $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
+        $Wind = GetValue($this->GetIDForIdent("Windstatus"));
            
         if($Status) {
-            if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
+            if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && !$Regen && !$Wind) {
                 SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
             }
         }
@@ -219,7 +220,7 @@ class Wetterstationsautomatik extends IPSModule
     public function Regenalarm()
     {
         $Regensensor = GetValue($this->ReadPropertyInteger("Regensensor"));
-        $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
+        $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen2"));
            
         if ($Regensensor) {
             SetValue($this->GetIDForIdent("Regenstatus"), true);
