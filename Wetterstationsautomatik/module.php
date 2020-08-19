@@ -119,7 +119,8 @@ class Wetterstationsautomatik extends IPSModule
     
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+        IPS_LogMessage($_IPS['SELF'], "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+        $this->SendDebug($_IPS['SELF'], "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true),0);
 
         //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
         $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
