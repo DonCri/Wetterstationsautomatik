@@ -201,34 +201,40 @@ class Wetterstationsautomatik extends IPSModule
        
     public function Windalarm()
     {
-        $Windsensor = GetValue($this->ReadPropertyInteger("Windsensor"));
+        $Windsensor = $this->ReadPropertyInteger("Windsensor");
+        $WindsensorWert = GetValue($Windsensor);
         $WindSollOben = GetValue($this->GetIDForIdent("WindSollOben"));
         $WindSollUnten = GetValue($this->GetIDForIdent("WindSollUnten"));
         $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
-           
-        if ($Windsensor >= $WindSollOben) {
-            SetValue($this->GetIDForIdent("Windstatus"), true);
-            $this->BeschattungAktivieren();
-        } elseif ($Windsensor <= $WindSollUnten) {
-            SetValue($this->GetIDForIdent("Windstatus"), false);
-            if ($Beschattung == true) {
-                $this->BeschattungWiederholen();
+        
+        if ($Windsensor) {
+            if ($WindsensorWert >= $WindSollOben) {
+                SetValue($this->GetIDForIdent("Windstatus"), true);
+                $this->BeschattungAktivieren();
+            } elseif ($WindsensorWert <= $WindSollUnten) {
+                SetValue($this->GetIDForIdent("Windstatus"), false);
+                if ($Beschattung == true) {
+                    $this->BeschattungWiederholen();
+                }
             }
         }
     }
        
     public function Regenalarm()
     {
-        $Regensensor = GetValue($this->ReadPropertyInteger("Regensensor"));
+        $Regensensor = $this->ReadPropertyInteger("Regensensor");
+        $RegensensorWert = GetValue($Regensensor);
         $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen2"));
            
         if ($Regensensor) {
-            SetValue($this->GetIDForIdent("Regenstatus"), true);
-            $this->BeschattungAktivieren();
-        } else {
-            SetValue($this->GetIDForIdent("Regenstatus"), false);
-            if ($Beschattung == true) {
-                $this->BeschattungWiederholen();
+            if ($RegensensorWert) {
+                SetValue($this->GetIDForIdent("Regenstatus"), true);
+                $this->BeschattungAktivieren();
+            } else {
+                SetValue($this->GetIDForIdent("Regenstatus"), false);
+                if ($Beschattung == true) {
+                    $this->BeschattungWiederholen();
+                }
             }
         }
     }
