@@ -119,8 +119,6 @@ class Wetterstationsautomatik extends IPSModule
     
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        IPS_LogMessage($_IPS['SELF'], "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
-
         //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
         $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
         $Azimut = $this->ReadPropertyInteger("Azimut");
@@ -155,13 +153,14 @@ class Wetterstationsautomatik extends IPSModule
         $RegenWert = GetValue($this->GetIDForIdent("Regenstatus"));
         $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
 
+        $this->SendDebug($_IPS['SELF'], print_r(json_encode([$Status, $Beschattungsstatus, $AzimutWert, $HelligkeitWert, $RegenWert]), true),0);
         if ($Status) { // Beschattungsautomatik aktiv
             if ($Beschattungsstatus) { // Licht Alarm wurde bereits ausgelöst
-                if ($Azimut > $AzimutSollBis || $Helligkeit <= $LuxSollUnten) {
+                if ($AzimutWert > $AzimutSollBis || $HelligkeitWert <= $LuxSollUnten) {
                     SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
                 }
             } else {
-                if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
+                if ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis && $HelligkeitWert >= $LuxSollOben && $RegenWert == false) {
                     SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                 }
             }
