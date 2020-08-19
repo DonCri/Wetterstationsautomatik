@@ -153,15 +153,18 @@ class Wetterstationsautomatik extends IPSModule
         $RegenWert = GetValue($this->GetIDForIdent("Regenstatus"));
         $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
 
-        $this->SendDebug($_IPS['SELF'], print_r(json_encode([$Status, $Beschattungsstatus, $AzimutWert, $HelligkeitWert, $RegenWert]), true),0);
         if ($Status) { // Beschattungsautomatik aktiv
             if ($Beschattungsstatus) { // Licht Alarm wurde bereits ausgelöst
-                if ($AzimutWert > $AzimutSollBis || $HelligkeitWert <= $LuxSollUnten) {
-                    SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
+                if($HelligkeitWert <= $LuxSollUnten){
+                    if(!$AzimutWert || $AzimutWert > $AzimutSollBis){
+                        SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
+                    }
                 }
             } else {
-                if ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis && $HelligkeitWert >= $LuxSollOben && $RegenWert == false) {
-                    SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                if ($HelligkeitWert >= $LuxSollOben && $RegenWert == false) {
+                    if(!$AzimutWert || ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis)){
+                        SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                    }
                 }
             }
         }
