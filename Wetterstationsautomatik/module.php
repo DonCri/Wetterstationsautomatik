@@ -169,7 +169,7 @@ class Wetterstationsautomatik extends IPSModule
                     $BeschattungDeaktivieren = true;
                 }
                 if($BeschattungDeaktivieren){
-                    SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                    SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
                 }
             } else {
                 if ($HelligkeitWert >= $LuxSollOben && !$Regenalarm) {
