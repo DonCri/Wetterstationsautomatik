@@ -74,7 +74,7 @@ class Wetterstationsautomatik extends IPSModule
         $this->EnableAction("AzimutSollVon");
         $this->RegisterVariableString("AzimutSollBis", "Azimut: Bis", "SchwellwertAzimut", 6);
         $this->EnableAction("AzimutSollBis");
-        $this->RegisterVariableBoolean("Beschattungsstatus", "Licht: Alarm", "BESCHATTUNG.SwitchSonne", 4);
+        $this->RegisterVariableBoolean("Beschattungsstatus", "Beschattung aktiv", "BESCHATTUNG.SwitchSonne", 4);
             
         // Variablen für Wind
         $this->RegisterVariableString("WindSollOben", "Wind: Oberen Schwellwert", "SchwellwertWind", 8);
@@ -150,18 +150,29 @@ class Wetterstationsautomatik extends IPSModule
         $AzimutWert = GetValue($this->ReadPropertyInteger("Azimut"));
         $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-        $RegenWert = GetValue($this->GetIDForIdent("Regenstatus"));
+        $Regenalarm = GetValue($this->GetIDForIdent("Regenstatus"));
+        $Windalarm = GetValue($this->GetIDForIdent("Windstatus"));
         $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
 
         if ($Status) { // Beschattungsautomatik aktiv
-            if ($Beschattungsstatus) { // Licht Alarm wurde bereits ausgelöst
+            if ($Beschattungsstatus) { // Beschattung ist bereits aktiv
+                $BeschattungDeaktivieren = false;
                 if($HelligkeitWert <= $LuxSollUnten){
                     if(!$AzimutWert || $AzimutWert > $AzimutSollBis){
-                        SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
+                        $BeschattungDeaktivieren = true;
                     }
                 }
+                if($Regenalarm){
+                    $BeschattungDeaktivieren = true;
+                }
+                if($Windalarm){
+                    $BeschattungDeaktivieren = true;
+                }
+                if($BeschattungDeaktivieren){
+                    SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                }
             } else {
-                if ($HelligkeitWert >= $LuxSollOben && $RegenWert == false) {
+                if ($HelligkeitWert >= $LuxSollOben && !$Regenalarm) {
                     if(!$AzimutWert || ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis)){
                         SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                     }
@@ -196,6 +207,7 @@ class Wetterstationsautomatik extends IPSModule
            
         if ($Windsensor >= $WindSollOben) {
             SetValue($this->GetIDForIdent("Windstatus"), true);
+            $this->BeschattungAktivieren();
         } elseif ($Windsensor <= $WindSollUnten) {
             SetValue($this->GetIDForIdent("Windstatus"), false);
             if ($Beschattung == true) {
@@ -211,6 +223,7 @@ class Wetterstationsautomatik extends IPSModule
            
         if ($Regensensor) {
             SetValue($this->GetIDForIdent("Regenstatus"), true);
+            $this->BeschattungAktivieren();
         } else {
             SetValue($this->GetIDForIdent("Regenstatus"), false);
             if ($Beschattung == true) {
