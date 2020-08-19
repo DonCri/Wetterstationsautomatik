@@ -59,31 +59,32 @@ class Wetterstationsautomatik extends IPSModule
         }
             
         // Variablen für die Beschattung
-        $this->RegisterVariableBoolean("Status", "Beschattungsautomatik aktiv?", "BESCHATTUNG.Switch", 1);
+        $this->RegisterVariableBoolean("Status", "Beschattungsautomatik Aktiv", "BESCHATTUNG.Switch", 1);
         $this->EnableAction("Status");
+        $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen", "BESCHATTUNG.Switch", 10);
+        $this->EnableAction("BeschattungWiederholen");
+        $this->RegisterVariableBoolean("BeschattungWiederholen2", "Nach Regen Beschattung erneut prüfen", "BESCHATTUNG.Switch", 12);
+        $this->EnableAction("BeschattungWiederholen2");
+
         $this->RegisterVariableString("LuxSollOben", "Helligkeit: Oberen Schwellwert", "SchwellwertSonne", 2);
         $this->EnableAction("LuxSollOben");
         $this->RegisterVariableString("LuxSollUnten", "Helligkeit: Unteren Schwellwert", "SchwellwertSonne", 3);
         $this->EnableAction("LuxSollUnten");
-        $this->RegisterVariableBoolean("Beschattungsstatus", "Beschattung aktiv?", "BESCHATTUNG.SwitchSonne", 4);
         $this->RegisterVariableString("AzimutSollVon", "Azimut: Von", "SchwellwertAzimut", 5);
         $this->EnableAction("AzimutSollVon");
         $this->RegisterVariableString("AzimutSollBis", "Azimut: Bis", "SchwellwertAzimut", 6);
         $this->EnableAction("AzimutSollBis");
+        $this->RegisterVariableBoolean("Beschattungsstatus", "Licht: Alarm", "BESCHATTUNG.SwitchSonne", 4);
             
         // Variablen für Wind
-        $this->RegisterVariableBoolean("Windstatus", "Windalarm?", "BESCHATTUNG.SwitchAlarm", 7);
         $this->RegisterVariableString("WindSollOben", "Wind: Oberen Schwellwert", "SchwellwertWind", 8);
         $this->EnableAction("WindSollOben");
         $this->RegisterVariableString("WindSollUnten", "Wind: Unteren Schwellwert", "SchwellwertWind", 9);
         $this->EnableAction("WindSollUnten");
-        $this->RegisterVariableBoolean("BeschattungWiederholen", "Nach Windalarm Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 10);
-        $this->EnableAction("BeschattungWiederholen");
+        $this->RegisterVariableBoolean("Windstatus", "Wind: Alarm", "BESCHATTUNG.SwitchAlarm", 7);
             
         // Variable für Regen
-        $this->RegisterVariableBoolean("Regenstatus", "Regen?", "BESCHATTUNG.SwitchAlarm", 11);
-        $this->RegisterVariableBoolean("BeschattungWiederholen2", "Nach Regen Beschattung erneut prüfen?", "BESCHATTUNG.Switch", 12);
-        $this->EnableAction("BeschattungWiederholen2");
+        $this->RegisterVariableBoolean("Regenstatus", "Regen: Alarm", "BESCHATTUNG.SwitchAlarm", 11);
             
         // Eigenschaften speichern
         $this->RegisterPropertyInteger("Helligkeit", 0);
@@ -106,62 +107,64 @@ class Wetterstationsautomatik extends IPSModule
         parent::ApplyChanges();
         
         if ($this->ReadPropertyBoolean("LichtsensorAktiv")) {
-            $this->RegisterMessage($this->GetIDForIdent("Helligkeit"), 10603 /* VM_UPDATE */);
-            $this->UnregisterMessage($this->GetIDForIdent("Azimut"), 10603 /* VM_UPDATE */);
+            $this->RegisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603 /* VM_UPDATE */);
+            $this->UnregisterMessage($this->ReadPropertyInteger("Azimut"), 10603 /* VM_UPDATE */);
         } else {
-            $this->RegisterMessage($this->GetIDForIdent("Azimut"), 10603 /* VM_UPDATE */);
-            $this->UnregisterMessage($this->GetIDForIdent("Helligkeit"), 10603 /* VM_UPDATE */);
+            $this->RegisterMessage($this->ReadPropertyInteger("Azimut"), 10603 /* VM_UPDATE */);
+            $this->UnregisterMessage($this->ReadPropertyInteger("Helligkeit"), 10603 /* VM_UPDATE */);
         }
-        $this->RegisterMessage($this->GetIDForIdent("Windsensor"), 10603 /* VM_UPDATE */);
-        $this->RegisterMessage($this->GetIDForIdent("Regensensor"), 10603 /* VM_UPDATE */);
+        $this->RegisterMessage($this->ReadPropertyInteger("Windsensor"), 10603 /* VM_UPDATE */);
+        $this->RegisterMessage($this->ReadPropertyInteger("Regensensor"), 10603 /* VM_UPDATE */);
     }
     
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
         IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
 
-        $Lichtsensor = $this->GetIDForIdent("LichtsensorAktiv");
-        $Azimut = $this->GetIDForIdent("Azimut");
-        $Windsensor = $this->GetIDForIdent("Windsensor");
-        $Regensensor = $this->GetIDForIdent("Regensensor");
+        //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
+        $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
+        $Azimut = $this->ReadPropertyInteger("Azimut");
+        $Windsensor = $this->ReadPropertyInteger("Windsensor");
+        $Regensensor = $this->ReadPropertyInteger("Regensensor");
 
-        if ($Lichtsensor == $SenderID || $Azimut == $SenderID) {
-            $this->BeschattungAktivieren();
-        } elseif ($Windsensor == $SenderID) {
-            $this->Windalarm();
-        } elseif ($Regensensor == $SenderID) {
-            $this->Regenalarm();
+        switch ($SenderID) {
+            case $Helligkeit:
+            case $Azimut:
+                $this->BeschattungAktivieren(); // Wird in beiden fällen ausgelöst, Aktualisierung von $Helligkeit und $Azimut
+            break;
+            case $Windsensor:
+                $this->Windalarm();
+            break;
+            case $Regensensor:
+                $this->Regenalarm();
+            break;
         }
     }
 
     public function BeschattungAktivieren()
     {
-        $Status = GetValue($this->GetIDForIdent("Status"));
-        $Helligkeit = $this->ReadPropertyInteger("Helligkeit");
+        //$LichtsensorAktiv = $this->ReadPropertyBoolean("LichtsensorAktiv");
+        $Status = GetValue($this->GetIDForIdent("Status"));     // gibt an ob Beschattungsautomatik aktiv oder inaktiv ist
+        $HelligkeitWert = GetValue($this->ReadPropertyInteger("Helligkeit"));
         $LuxSollOben = GetValue($this->GetIDForIdent("LuxSollOben"));
-        $LuxSollUnten = GetValue($this->GetIDForIdent("LuxSollOben"));
-        $Azimut = $this->ReadPropertyInteger("Azimut");
+        $LuxSollUnten = GetValue($this->GetIDForIdent("LuxSollUnten"));
+        $AzimutWert = GetValue($this->ReadPropertyInteger("Azimut"));
         $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-        $Regen = GetValue($this->GetIDForIdent("Regenstatus"));
+        $RegenWert = GetValue($this->GetIDForIdent("Regenstatus"));
         $Beschattungsstatus = GetValue($this->GetIDForIdent("Beschattungsstatus"));
-            
-        switch ($Status) {
-                case true:
-                    switch ($Beschattungsstatus) {
-                        case false:
-                            if ($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
-                                SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
-                            }
-                            break;
-                        case true:
-                            if ($Azimut > $AzimutSollBis || $Helligkeit <= $LuxSollUnten) {
-                                SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
-                            }
-                            break;
-                    }
-                    break;
+
+        if ($Status) { // Beschattungsautomatik aktiv
+            if ($Beschattungsstatus) { // Licht Alarm wurde bereits ausgelöst
+                if ($Azimut > $AzimutSollBis || $Helligkeit <= $LuxSollUnten) {
+                    SetValue($this->GetIDForIdent("Beschattungsstatus"), false);
+                }
+            } else {
+                if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
+                    SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+                }
             }
+        }
     }
         
     public function BeschattungWiederholen()
@@ -174,25 +177,23 @@ class Wetterstationsautomatik extends IPSModule
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
         $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
            
-        switch ($Status) {
-               case true:
-                       if ($Azimut >= $AzimutSollVon && $Azimut < $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
-                           SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
-                       }
-                   break;
-           }
+        if($Status) {
+            if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && $Regen == false) {
+                SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
+            }
+        }
     }
        
     public function Windalarm()
     {
-        $Windsensor = $this->ReadPropertyInteger("Windsensor");
+        $Windsensor = GetValue($this->ReadPropertyInteger("Windsensor"));
         $WindSollOben = GetValue($this->GetIDForIdent("WindSollOben"));
         $WindSollUnten = GetValue($this->GetIDForIdent("WindSollUnten"));
         $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
            
         if ($Windsensor >= $WindSollOben) {
             SetValue($this->GetIDForIdent("Windstatus"), true);
-        } elseif ($Windsensor < $WindSollUnten) {
+        } elseif ($Windsensor <= $WindSollUnten) {
             SetValue($this->GetIDForIdent("Windstatus"), false);
             if ($Beschattung == true) {
                 $this->BeschattungWiederholen();
@@ -202,19 +203,16 @@ class Wetterstationsautomatik extends IPSModule
        
     public function Regenalarm()
     {
-        $Regensensor = $this->ReadPropertyInteger("Regensensor");
+        $Regensensor = GetValue($this->ReadPropertyInteger("Regensensor"));
         $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
            
-        switch ($Regensensor) {
-               case true:
-                    SetValue($this->GetIDForIdent("Regenstatus"), true);
-                   break;
-               case false:
-                    SetValue($this->GetIDForIdent("Regenstatus"), false);
-                    if ($Beschattung == true) {
-                        $this->BeschattungWiederholen();
-                    }
-                   break;
-           }
+        if ($Regensensor) {
+            SetValue($this->GetIDForIdent("Regenstatus"), true);
+        } else {
+            SetValue($this->GetIDForIdent("Regenstatus"), false);
+            if ($Beschattung == true) {
+                $this->BeschattungWiederholen();
+            }
+        }
     }
 }
