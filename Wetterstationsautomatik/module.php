@@ -117,7 +117,6 @@ class Wetterstationsautomatik extends IPSModule
         $Azimut = $this->ReadPropertyInteger("Azimut");
         $Windsensor = $this->ReadPropertyInteger("Windsensor");
         $Regensensor = $this->ReadPropertyInteger("Regensensor");
-        $this->SendDebug($_IPS['SELF'], print_r([$SenderID, $Helligkeit, $Azimut, $Windsensor, $Regensensor], true),0);
 
         switch ($SenderID) {
             case $Helligkeit:
@@ -184,7 +183,6 @@ class Wetterstationsautomatik extends IPSModule
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
         $Regen = GetValue($this->GetIDForIdent("Regenstatus"));
         $Wind = GetValue($this->GetIDForIdent("Windstatus"));
-        $this->SendDebug("Wetterstationsautomatik",json_encode([$Regen, $Wind]),0);
            
         if($Status) {
             if ($Azimut >= $AzimutSollVon && $Azimut <= $AzimutSollBis && $Helligkeit >= $LuxSollOben && !$Regen && !$Wind) {
