@@ -181,7 +181,7 @@ class Wetterstationsautomatik extends IPSModule
         $Azimut = GetValue($this->ReadPropertyInteger("Azimut"));
         $AzimutSollVon = GetValue($this->GetIDForIdent("AzimutSollVon"));
         $AzimutSollBis = GetValue($this->GetIDForIdent("AzimutSollBis"));
-        $Regen = GetValue($this->ReadPropertyInteger("Regenstatus"));
+        $Regen = GetValue($this->GetIDForIdent("Regenstatus"));
         $Wind = GetValue($this->GetIDForIdent("Windstatus"));
         $this->SendDebug("Wetterstationsautomatik",json_encode([$Regen, $Wind]),0);
            
