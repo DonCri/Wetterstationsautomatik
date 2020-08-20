@@ -150,9 +150,10 @@ class Wetterstationsautomatik extends IPSModule
             if ($Beschattungsstatus) { // Beschattung ist bereits aktiv
                 $BeschattungDeaktivieren = false;
                 if($HelligkeitWert <= $LuxSollUnten){
-                    if(!$AzimutWert || $AzimutWert > $AzimutSollBis){
-                        $BeschattungDeaktivieren = true;
-                    }
+                    $BeschattungDeaktivieren = true;
+                }
+                if($AzimutWert && ($AzimutWert >= $AzimutSollBis || $AzimutWert < $AzimutSollVon)){
+                    $BeschattungDeaktivieren = true;
                 }
                 if($Regenalarm){
                     $BeschattungDeaktivieren = true;
