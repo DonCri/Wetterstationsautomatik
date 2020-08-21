@@ -151,13 +151,7 @@ class Wetterstationsautomatik extends IPSModule
                 if($HelligkeitWert <= $LuxSollUnten){
                     $BeschattungDeaktivieren = true;
                 }
-                if($AzimutWert && ($AzimutWert >= $AzimutSollBis || $AzimutWert < $AzimutSollVon)){
-                    $BeschattungDeaktivieren = true;
-                }
-                if($Regenalarm){
-                    $BeschattungDeaktivieren = true;
-                }
-                if($Windalarm){
+                if($AzimutWert != false && ($AzimutWert >= $AzimutSollBis || $AzimutWert < $AzimutSollVon)){
                     $BeschattungDeaktivieren = true;
                 }
                 if($BeschattungDeaktivieren){
@@ -165,7 +159,7 @@ class Wetterstationsautomatik extends IPSModule
                 }
             } else {
                 if ($HelligkeitWert >= $LuxSollOben && !$Regenalarm && !$Windalarm) {
-                    if(!$AzimutWert || ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis)){
+                    if($AzimutWert == false || ($AzimutWert >= $AzimutSollVon && $AzimutWert <= $AzimutSollBis)){
                         SetValue($this->GetIDForIdent("Beschattungsstatus"), true);
                     }
                 }
@@ -202,7 +196,6 @@ class Wetterstationsautomatik extends IPSModule
         if ($Windsensor) {
             if ($WindsensorWert >= $WindSollOben) {
                 SetValue($this->GetIDForIdent("Windstatus"), true);
-                $this->BeschattungAktivieren();
             } elseif ($WindsensorWert <= $WindSollUnten) {
                 SetValue($this->GetIDForIdent("Windstatus"), false);
                 if ($Beschattung == true) {
@@ -221,7 +214,6 @@ class Wetterstationsautomatik extends IPSModule
         if ($Regensensor) {
             if ($RegensensorWert) {
                 SetValue($this->GetIDForIdent("Regenstatus"), true);
-                $this->BeschattungAktivieren();
             } else {
                 SetValue($this->GetIDForIdent("Regenstatus"), false);
                 if ($Beschattung == true) {
