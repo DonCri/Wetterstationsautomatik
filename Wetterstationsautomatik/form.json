@@ -1,15 +1,15 @@
 {
     "elements":
     [
-        { "type": "Label", "label": "Beschattung:"},
-        { "type": "CheckBox", "name": "LichtsensorAktiv", "caption": "Aktivierung der Beschattung durch den Lichtsensor (inaktiv durch Sonnenazimut" },
+        { "type": "Label", "label": ""},
+        { "type": "Label", "label": "Licht"},
         { "type": "SelectVariable", "name": "Helligkeit", "caption": "Lichtsensor" },
         { "type": "SelectVariable", "name": "Azimut", "caption": "Sonnenazimut"},
         { "type": "Label", "label": ""},
         { "type": "Label", "label": "Regen"},
         { "type": "SelectVariable", "name": "Regensensor", "caption": "Regensensor" },
         { "type": "Label", "label": ""},
-        { "type": "Label", "label": "Wind:"},
+        { "type": "Label", "label": "Wind"},
         { "type": "SelectVariable", "name": "Windsensor", "caption": "Windsensor" }
     ]
 }
