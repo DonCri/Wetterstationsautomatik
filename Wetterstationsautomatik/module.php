@@ -97,10 +97,10 @@ class Wetterstationsautomatik extends IPSModule
     {
         $IdentID = $this->GetIDForIdent($Ident);
         if ($IdentID) {
-            SetValue(IdentID, $Value);
+            SetValue($IdentID, $Value);
         }
     }
-    
+
     public function ApplyChanges()
     {
         parent::ApplyChanges();
@@ -151,7 +151,7 @@ class Wetterstationsautomatik extends IPSModule
                 if($HelligkeitWert <= $LuxSollUnten){
                     $BeschattungDeaktivieren = true;
                 }
-                if($AzimutWert != false && ($AzimutWert >= $AzimutSollBis || $AzimutWert < $AzimutSollVon)){
+                if($AzimutWert != false && ($AzimutWert > $AzimutSollBis || $AzimutWert < $AzimutSollVon)){
                     $BeschattungDeaktivieren = true;
                 }
                 if($BeschattungDeaktivieren){
