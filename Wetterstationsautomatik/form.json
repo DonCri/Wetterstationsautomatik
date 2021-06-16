@@ -10,6 +10,9 @@
         { "type": "SelectVariable", "name": "Regensensor", "caption": "Regensensor" },
         { "type": "Label", "label": ""},
         { "type": "Label", "label": "Wind"},
-        { "type": "SelectVariable", "name": "Windsensor", "caption": "Windsensor" }
+        { "type": "SelectVariable", "name": "Windsensor", "caption": "Windsensor" },
+        { "type": "Label", "label": ""},
+        { "type": "Label", "label": "Delta für Windveränderung"},
+        { "type": "NumberSpinner", "name": "Delta", "caption": "Delta"} 
     ]
 }

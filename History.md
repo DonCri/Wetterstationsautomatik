@@ -1,3 +1,7 @@
+### Version 2.0
+* Filter hinzugefügt welches ein Delta ausrechnet um zu grosse sprünge bei der Windveränderung zu verwerfen.
+* Dazu wird eine neue versteckte Variable "Letzter Wert" eingeügt.
+
 ### Version 1.0
 
 #### Folgende Variablen werden hinzugefügt 

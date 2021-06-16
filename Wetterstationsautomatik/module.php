@@ -82,6 +82,8 @@ class Wetterstationsautomatik extends IPSModule
         $this->RegisterVariableString("WindSollUnten", "Wind: Unteren Schwellwert", "SchwellwertWind", 9);
         $this->EnableAction("WindSollUnten");
         $this->RegisterVariableBoolean("Windstatus", "Wind: Alarm", "BESCHATTUNG.SwitchAlarm", 7);
+        $this->RegisterVariableFloat("WindLetzterWert", "Wind: letzter Wert", "", 13);
+        IPS_SetHidden($this->GetIDForIdent("WindLetzterWert"), true);
             
         // Variable für Regen
         $this->RegisterVariableBoolean("Regenstatus", "Regen: Alarm", "BESCHATTUNG.SwitchAlarm", 11);
@@ -91,6 +93,7 @@ class Wetterstationsautomatik extends IPSModule
         $this->RegisterPropertyInteger("Azimut", 0);
         $this->RegisterPropertyInteger("Regensensor", 0);
         $this->RegisterPropertyInteger("Windsensor", 0);
+        $this->RegisterPropertyInteger("Delta", 40);
     }
 
     public function RequestAction($Ident, $Value)
@@ -192,14 +195,24 @@ class Wetterstationsautomatik extends IPSModule
         $WindSollOben = GetValue($this->GetIDForIdent("WindSollOben"));
         $WindSollUnten = GetValue($this->GetIDForIdent("WindSollUnten"));
         $Beschattung = GetValue($this->GetIDForIdent("BeschattungWiederholen"));
+        $eingestellterDelta = $this->ReadPropertyInteger("Delta");
+        $letzterWert = GetValue($this->GetIDForIdent("WindLetzterWert"));
+
+        $windDifferenz = $WindsensorWert - $letzterWert;
+        // Quadrat rechnen und Wurzel ziehen damit keine negativ Werte entstehen.
+        $quadratLetzterWert = pow($windDifferenz, 2); 
+        $wurzelLetzterWert = sqrt($quadratLetzterWert);
         
         if ($Windsensor) {
-            if ($WindsensorWert >= $WindSollOben) {
-                SetValue($this->GetIDForIdent("Windstatus"), true);
-            } elseif ($WindsensorWert <= $WindSollUnten) {
-                SetValue($this->GetIDForIdent("Windstatus"), false);
-                if ($Beschattung == true) {
-                    $this->BeschattungWiederholen();
+            if($wurzelLetzterWert < $eingestellterDelta) {
+                SetValue($this->GetIDForIdent("WindLetzterWert"), $WindsensorWert);
+                if ($WindsensorWert >= $WindSollOben) {
+                    SetValue($this->GetIDForIdent("Windstatus"), true);
+                } elseif ($WindsensorWert <= $WindSollUnten) {
+                    SetValue($this->GetIDForIdent("Windstatus"), false);
+                    if ($Beschattung == true) {
+                        $this->BeschattungWiederholen();
+                    }
                 }
             }
         }
